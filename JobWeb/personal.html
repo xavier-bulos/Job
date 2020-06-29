@@ -1,0 +1,284 @@
+﻿<!DOCTYPE html>
+<html class="no-js" lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>个人资料修改</title>
+	<!-- Google Fonts -->
+	<!-- <link href="https://fonts.googleapis.com/css?family=Nunito:300,400,600,700" rel="stylesheet"> -->
+	<link rel="stylesheet" href="css/assets/font-awesome.min.css">
+	<link rel="stylesheet" href="css/assets/bootstrap.min.css">
+	<link rel="stylesheet" href="css/assets/flaticon.css">
+	<link rel="stylesheet" href="css/assets/magnific-popup.css">
+	<link rel="stylesheet" href="css/assets/meanmenu.css">
+	<!-- owl carousel -->
+	<link rel="stylesheet" href="css/assets/owl.carousel.min.css">
+	<link rel="stylesheet" href="css/assets/owl.theme.default.min.css">
+	<!-- Main Css -->
+	<link rel="stylesheet" href="css/assets/stl.css">
+	<link rel="stylesheet" href="css/assets/rs.css">
+	<link rel="stylesheet" href="css/assets/ms.css">
+	<link rel="stylesheet" href="css/main.css">
+	<link rel="stylesheet" href="css/assets/inner-pages.css">
+	<link rel="stylesheet" href="css/assets/inner-pages-responsive.css">
+	<!--用户菜单-->
+	<link rel="stylesheet" href="css/atlantis.min.css">
+
+
+</head>
+
+<body class="home-hostio" id="home-hostio">
+	<!-- Preloader -->
+	<div id="preloader">
+		<div id="status">&nbsp;</div>
+	</div>
+
+	<header class="banner-area dark-overlay">
+		<!--banner nav-->
+		<div class="nav-header">
+			<!-- header-top -->
+			<div class="header-top">
+				<div class="container">
+					<div class="top-flex">
+						<a href="index.html" class="text-white"  style=" font-size: 20px ;">首 页</a>
+						<div class="top-area-right text-right">
+							<div class="right-header-top">
+								<ul class="">
+									<li class=" active nav-item dropdown hidden-caret">
+										<a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#"
+											aria-expanded="false">
+											<div class="avatar-sm">
+												<img src="images/profile.jpg" alt="头像"
+													class="avatar-img rounded-circle">
+											</div>
+										</a>
+										<ul class="dropdown-menu dropdown-user animated fadeIn">
+											<div class="dropdown-user-scroll scrollbar-outer">
+												<li id="srcLi">
+													<div class="user-box">
+														<div class="avatar-lg"><img src="images/profile.jpg" alt="头像" class="avatar-img rounded"></div>
+
+													</div>
+													<div class="user-box">
+
+														<div class="u-text">
+
+															<a href="login.html">登陆</a>
+
+														</div>
+													</div>
+												</li>
+												<li id="nameLi"></li>
+											</div>
+										</ul>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- 导航栏 -->
+
+		</div>
+		<!--个人资料管理-->
+		<div id="app" class="banner-body">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="card">
+							<div class="card-header">
+								<div class="card-title">个人中心</div>
+							</div>
+							<div class="card-body">
+								<div class="row">
+									<div class="col-md-3">
+										<div class="form-group">
+											<label for="email2">您的头像:</label><br>
+											<div class="avatar avatar-xxl">
+												<img src="images/profile.jpg" alt="头像" class="avatar-img rounded">
+											</div>
+											<!-- 上传头像 -->
+											<!-- <div class="col-md-2">
+												<br>
+												<input type="file" class="form-control-file"
+													id="exampleFormControlFile1">
+											</div> -->
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="form-group">
+											<label for="user-name">用户名：</label>
+											<h2 class="text-muted" id="user-name"></h2>
+										</div>
+										<div class="form-group">
+											<a class="ChangePassword btn btn-info" >修改密码</a>
+										</div>
+										<div class="form-group">
+											<label for="user-phone">手机号码：</label>
+											<!-- 到时候这里的value绑定后台数据 -->
+												<p class="text-muted" id="user-phone"></p>
+										</div>
+										
+
+										<div class="form-group">
+											<a href="star.html" class="ChangePassword btn btn-info" >收藏列表</a>
+
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</header>
+
+	<!-- 模态框:修改密码 -->
+<div class="modal fade" id="updatePassword" tabindex="-1">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="line-height:20px;margin-top:-15px;margin-right:-10px;">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title position-absolute" id="exampleModalLabel" style="top:8px;left:12px;">修改密码</h4>
+                </div>
+                <div class="modal-body">
+                    <form name="editForm" onsubmit="return submitPassword()">
+                        <div class="form-group">
+                            <label for="recipient-name">原密码：</label>
+                            <input type="text" id="oldpassword" class="form-control" name="oldpassword" required placeholder="原密码">
+                            <div style="display: inline" id="tip1"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="message-text">新密码：</label>
+                            <input type='password' id="password1" name="password1" class="form-control" required placeholder="长度为: 6-18">
+                            <div style="display: inline" id="tip2"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="message-text">确认密码：</label>
+                            <input type='password' id="password2" name="password2" class="form-control" required placeholder="请再次输入新密码">
+                            <div style="display: inline" id="tip3"></div>
+						</div>
+						<div class="modal-footer">
+							<!-- <button onclick="submitPassword()" class="btn btn-primary" ng-disabled="editForm.$invalid">确定</button> -->
+							<button type="submit" class="btn btn-primary" >确定</button>
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+									</div>
+                    </form>
+                </div>
+		
+            </div>
+        </div>
+    </div>
+
+<!-- 尾部 -->
+<footer class="pt-120">
+	<div class="container">
+		<div class="footer-top pb-70">
+		<div class="row">
+			<div class="col-12 col-md-6 col-lg-4">
+				<div class="footer-title">
+					<img src="images/logo.png" alt="" class="f_logo">
+					<p>这是一个为招聘信息爬取开发的平台。</p>
+				</div>
+			</div>
+			<div class="col-12 col-md-6 col-lg-3">
+				<div class="footer-link">
+					<h3>重要链接</h3>
+					<ul>
+						<li><a href="#">Wordpress Hosting</a></li>
+						<li><a href="#">VPS Hosting</a></li>
+						<li><a href="#">Cloud Server</a></li>
+						<li><a href="#">Didecated Server</a></li>
+						<li><a href="">Domain Transfer</a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="col-12 col-md-6 col-lg-2">
+				<div class="company-content">
+					<h3>重要页面</h3>
+					<ul>
+						<li><a href="#">About us</a></li>
+						<li><a href="#">Pricing</a></li>
+						<li><a href="#">Blog</a></li>
+						<li><a href="#">Support</a></li>
+						<li><a href="#">Contact</a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="col-12 col-md-6 col-lg-3">
+				<div class="newspaper-site">
+				<h3>联系我们</h3>
+				<input type="email" name="email" placeholder="Email Address">
+				<div class="btn-send">
+					<a href="#">send</a>
+				</div>
+				<ul class="icon-bottom">
+					<li><a href="#"><i class="fa fa-facebook"></i></a></li>
+					<li><a href="#"><i class="fa fa-twitter"></i></a></li>
+					<li><a href="#"><i class="fa fa-google"></i></a></li>
+					<li><a href="#"><i class="fa fa-instagram"></i></a></li>
+				</ul>
+				</div>
+			</div>
+		</div>
+		</div>
+	</div>
+	<div class="footer-bottom">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6">
+					<p>Copyright &copy; 2020.17软件工程4班-1组.</p>
+				</div>
+				<div class="col-md-6 text-right">
+					<ul>
+						<li><a href="">Terms and Condition</a></li>                  
+						<li><a href="">Privecy Policy</a></li>                  
+						<li><a href="">Refund Policy</a></li>                  
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</footer>
+
+    <!--============= { 滚动至顶部 } ===========-->
+    <section id="scroll-top" class="scroll-top">
+        <h2 class="disabled">&nbsp;</h2>
+        <div class="to-top pos-rtive">
+            <a href="#"><i class = "flaticon-up-arrow"></i></a>
+        </div>
+    </section>
+
+	<!-- JavaScript Files -->
+	<script src="js/jquery-3.2.1.min.js"></script>
+	<script src="js/popper.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/owl.carousel.min.js"></script>
+	<script src="js/jquery.magnific-popup.min.js"></script>
+	<script src="js/jquery.meanmenu.min.js"></script>
+	<script src="js/main.js"></script>
+	<script src="js/jquery.cookie.js"></script>
+
+	<script src="js/vue.js"></script>
+	<script src="js/changePwd.js"></script>
+
+	<script src="js/common.js"></script>
+	<script>
+
+
+        if( name  != "undefined"){}
+        else{
+            alert("你还未登录");
+            window.location.href="/index.html";
+        }
+
+	</script>
+</body>
+
+</html>

@@ -1,0 +1,413 @@
+﻿<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>招聘信息爬取系统</title>
+	<!-- Google Fonts -->
+	<!-- <link href="https://fonts.googleapis.com/css?family=Nunito:300,400,600,700" rel="stylesheet"> -->
+	<link rel="stylesheet" href="css/assets/font-awesome.min.css">
+	<link rel="stylesheet" href="css/assets/bootstrap.min.css" >
+	<link rel="stylesheet" href="css/assets/flaticon.css">
+	<link rel="stylesheet" href="css/assets/magnific-popup.css">
+	<link rel="stylesheet" href="css/assets/meanmenu.css">
+	<!-- owl carousel -->
+	<link rel="stylesheet" href="css/assets/owl.carousel.min.css">
+	<link rel="stylesheet" href="css/assets/owl.theme.default.min.css">
+	<!-- Main Css -->
+	<link rel="stylesheet" href="css/assets/stl.css">
+	<link rel="stylesheet" href="css/assets/rs.css">
+	<link rel="stylesheet" href="css/assets/ms.css">
+	<link rel="stylesheet" href="css/main.css">
+	<link rel="stylesheet" href="css/assets/inner-pages.css">
+	<link rel="stylesheet" href="css/assets/inner-pages-responsive.css">
+	<!--用户菜单-->
+	<link rel="stylesheet" href="css/atlantis.min.css">
+	<script src="js/jquery.cookie.js"></script>
+	<script src="js/common.js"></script>
+
+</head>
+<body class="home-hostio" id="home-hostio">
+<!-- 个人管理 -->
+<div id="preloader">
+	<div id="status">&nbsp;</div>
+</div>
+
+<header class="banner-area dark-overlay">
+	<!--banner nav-->
+	<div class="nav-header">
+		<!-- header-top -->
+		<div class="header-top">
+			<div class="container">
+				<div class="top-flex">
+					<a href="index.html" class="text-white"  style=" font-size: 20px ;">首 页</a>
+					<div class="top-area-right text-right">
+						<div class="right-header-top">
+							<ul class="">
+								<li class=" active nav-item dropdown hidden-caret">
+									<a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#" aria-expanded="false">
+										<div class="avatar-sm">
+											<img src="images/profile.jpg" alt="头像" class="avatar-img rounded-circle">
+										</div>
+									</a>
+									<ul class="dropdown-menu dropdown-user animated fadeIn">
+										<div class="dropdown-user-scroll scrollbar-outer">
+											<li id="srcLi">
+												<div class="user-box">
+													<div class="avatar-lg"><img src="images/profile.jpg" alt="头像" class="avatar-img rounded"></div>
+
+												</div>
+												<div class="user-box">
+
+													<div class="u-text">
+
+														<a href="login.html">登陆</a>
+
+													</div>
+												</div>
+											</li>
+											<li id="nameLi"></li>
+										</div>
+									</ul>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--筛选——（高级搜索）-->
+	<div class="banner-body">
+		<div class="container">
+			<div class="col-md-12">
+				<div class="banner-content text-center">
+					<h2>欢迎使用招聘爬取系统</h2>
+					<p>请输入你需要查找的内容  没有合适目标？来试试<a href="search.html">高级搜索</a>吧</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--搜索栏——（普通搜索）-->
+	<div class="banner-search-area ">
+		<div class="container">
+			<div class="col-md-12">
+				<div class="search-banner pr-30 pl-30 pb-70">
+					<input class="form-control search-inner" type="text" id="search" v-model="keywords" placeholder="请输入关键字">
+					<div class="search-submit">
+						<!--搜索按钮样式待定-->
+						<input type="submit" onclick=" return searchByKey()">
+					</div>
+					<div class="site-search">
+						<ul>
+							<li><a class="nav-link" id="tab-nobd" data-toggle="pill" href="#pills-home-nobd" role="tab" aria-controls="pills-home-nobd" aria-selected="false" onclick=" return searchWord('java')"><span>java开发</span></a></li>
+							<li><a class="nav-link" id="tab-yi" data-toggle="pill" href="#pills-home-nobd" role="tab" aria-controls="pills-home-nobd" aria-selected="false" onclick=" return searchWord('web')"><span>web前端</span></a></li>
+							<li><a class="nav-link" id="tab-er" data-toggle="pill" href="#pills-home-nobd" role="tab" aria-controls="pills-home-nobd" aria-selected="false"onclick=" return searchWord('python')"><span>Python</span></a></li>
+							<li><a class="nav-link" id="tab-san" data-toggle="pill" href="#pills-home-nobd" role="tab" aria-controls="pills-home-nobd" aria-selected="false"onclick=" return searchWord('测试')"><span>软件测试</span></a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</header>
+
+<!--信息表格——（爬取结果）-->
+<div class="about_top_wrapper" id="about-section">
+	<div id="app" class="container">
+		<div class="card-body">
+			<table class="table table-head-bg-primary mt-4">
+				<thead>
+				<tr>
+					<th scope="col">职位名</th>
+					<th scope="col">公司名</th>
+					<th scope="col">工作地点</th>
+					<th scope="col">薪资</th>
+					<th scope="col">发布时间</th>
+					<th scope="col">工作经验</th>
+					<th scope="col" colspan="2" style=" text-align: center;">操作</th>
+
+				</tr>
+				</thead>
+				<tbody id="show">
+
+				</tbody>
+			</table>
+		</div>
+		<div class="container">
+
+			<!--分页容器-->
+			<div class="turn-page" id="pagination-2">
+				<!-- 分页按钮 -->
+				<nav aria-label="Page navigation example" class="d-flex justify-content-center">
+					<ul class="pagination">
+						<li id="first" class="page-item "><a  aria-label="Previous" class="page-link"><span aria-hidden="true">首页</span></a></li>
+							<ul id="paging" class="pagination"></ul>
+						<li id="next" class="page-item "><a  aria-label="Next" class="page-link"><span aria-hidden="true">下一页</span></a></li>
+
+					</ul>
+				</nav>
+				<nav id="pagetotal" aria-label="Page navigation example" class="d-flex justify-content-center">
+				</nav>
+
+			</div>
+
+		</div>
+	</div>
+</div>
+<!-- 尾部 -->
+<footer class="pt-120">
+	<div class="container">
+		<div class="footer-top pb-70">
+			<div class="row">
+				<div class="col-12 col-md-6 col-lg-4">
+					<div class="footer-title">
+						<img src="images/logo.png" alt="" class="f_logo">
+						<p>这是一个为招聘信息爬取开发的平台。</p>
+					</div>
+				</div>
+				<div class="col-12 col-md-6 col-lg-3">
+					<div class="footer-link">
+						<h3>重要链接</h3>
+						<ul>
+							<li><a href="#">Wordpress Hosting</a></li>
+							<li><a href="#">VPS Hosting</a></li>
+							<li><a href="#">Cloud Server</a></li>
+							<li><a href="#">Didecated Server</a></li>
+							<li><a href="">Domain Transfer</a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-12 col-md-6 col-lg-2">
+					<div class="company-content">
+						<h3>重要页面</h3>
+						<ul>
+							<li><a href="#">About us</a></li>
+							<li><a href="#">Pricing</a></li>
+							<li><a href="#">Blog</a></li>
+							<li><a href="#">Support</a></li>
+							<li><a href="#">Contact</a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-12 col-md-6 col-lg-3">
+					<div class="newspaper-site">
+						<h3>联系我们</h3>
+						<input type="email" name="email" placeholder="Email Address">
+						<div class="btn-send">
+							<a href="#">send</a>
+						</div>
+						<ul class="icon-bottom">
+							<li><a href="#"><i class="fa fa-facebook"></i></a></li>
+							<li><a href="#"><i class="fa fa-twitter"></i></a></li>
+							<li><a href="#"><i class="fa fa-google"></i></a></li>
+							<li><a href="#"><i class="fa fa-instagram"></i></a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="footer-bottom">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6">
+					<p>Copyright &copy; 2020.17软件工程4班-1组.</p>
+				</div>
+				<div class="col-md-6 text-right">
+					<ul>
+						<li><a href="">Terms and Condition</a></li>
+						<li><a href="">Privecy Policy</a></li>
+						<li><a href="">Refund Policy</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</footer>
+
+<!--============= { 滚动至顶部 } ===========-->
+<section id="scroll-top" class="scroll-top">
+	<h2 class="disabled">&nbsp;</h2>
+	<div class="to-top pos-rtive">
+		<a href="#"><i class = "flaticon-up-arrow"></i></a>
+	</div>
+</section>
+
+<!-- JavaScript Files -->
+<script src="js/jquery-3.2.1.min.js"></script>
+<script src="js/popper.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/owl.carousel.min.js"></script>
+<script src="js/jquery.magnific-popup.min.js"></script>
+<script src="js/jquery.meanmenu.min.js"></script>
+<script src="js/main.js"></script>
+<script src="js/vue.js"></script>
+<script src="js/jquery.cookie.js"></script>
+<script src="js/common.js"></script>
+<!--筛选-->
+<!-- <script src="js/selectscript.js"></script> -->
+<script>
+
+	$("#about-section").hide();
+    var pageNo = 1;
+var tal=0;
+
+    function searchWord( word ){
+       pageNo = 1;
+        search(word);
+	}
+    function searchByKey(  ){
+
+        pageNo = 1;
+        var kword = $("#search").val();
+       	search(kword);
+    }
+
+
+    function topage() {
+        var kword = $("#search").val();
+		search(kword);
+    }
+
+    var jobid = new Array();
+	function search( word ) {
+
+        $('html,body').animate({
+            scrollTop: 400
+        }, 700);
+
+        $.ajax({
+            async: false,
+            type:"POST",
+            url:"http://47.115.18.236:8090/search",
+            data:{
+                "keyword":word,
+                "pageNo": pageNo
+            },
+            xhrFields: {withCredentials: true},
+            success:function (result) {
+                var jobList = result.list;
+                $("#show").empty();
+				$("#about-section").show();
+				//渲染前端列表数据
+                $.each(jobList, function (index,job) {
+                    jobid[index] = job.jobId;
+                    var jurl = job.jobUrl;
+                    var title = job.jobTitle;
+                    var curl = job.companyUrl;
+                    var company =job.company;
+                    var place = job.workPlace;
+                    var pay = job.jobPay;
+                    var time = job.releaseTime;
+                    var state = job.jobState;
+
+                    var str = "";
+                    str += "\n <tr><td><a href=\""+jurl+"\">"+title +"</a></td><td><a href=\""+curl+"\">"
+                        +company+"</a></td><td>"+place+"</td><td>"+pay+"</td><td>"+time+"</td><td>"
+                        +state+ "</td><td><button class=\"btn btn-primary \" onclick = \" return add("+index+")\" >收藏</button></td></tr>"
+                    $("#show").append(str);
+                })
+
+                 tal = result.totalPage;
+                $("#pagetotal").html("当前第"+pageNo+"页  "+"总共"+tal+"页");
+
+				//创建前端分页
+				var total = result.totalPage;
+                var vsize = result.pageSize;
+				pageNo = result.page;
+                $("#paging").empty();
+				if(total <= 4 || pageNo == 1){
+				    for(var i=1;i <=Math.min(total,4);i++){
+				        var strP = "";
+				        strP += "<li class=\"page-item  " ;
+				        if(i == pageNo){strP += "active";}
+						strP +=	"\"><a  class=\"page-link\" >"+i+"</a></li>";
+				        $("#paging").append(strP);
+					}
+				}
+				if(total > 4 && pageNo > 1) {
+				    for(var i= (pageNo-1); i<= total && i <= pageNo+2; i++){
+                        var strP = "";
+                        strP += "<li class=\"page-item " ;
+                        if(i == pageNo){strP += "active";}
+                        strP +=	"\"><a  class=\"page-link\" >"+i+"</a></li>";
+                        $("#paging").append(strP);
+					}
+				}
+				if(total == pageNo){
+                    $("#next a").text("到底了");
+				}
+
+				$("#paging li").on("click",function () {
+                    pageNo = $(this).find("a").text();
+                    topage();
+                });
+				
+                
+	
+
+	
+
+	
+				
+
+            },
+            error:function (result) {
+                alert("系统错误");
+                return false;
+            }
+        });
+    }
+
+$("#next").click(function () {
+                   if(pageNo < tal){
+                    	pageNo = pageNo+1;
+                       topage();
+                   }
+                })
+$("#first").on("click",function () {
+					pageNo = 1;
+					topage();
+                });
+
+    function add(index) {
+
+	    if( name  != "undefined"){
+            var id = jobid[index];
+            $.ajax({
+                async: false,
+                type:"POST",
+                url:"http://47.115.18.236:8090/inCollect",
+                data:{
+                    "userName":name,
+                    "jobId": id
+                },
+                xhrFields: {withCredentials: true},
+                success:function (result) {
+                    if (result == "success") {
+                        alert("添加成功");
+                    }
+                    else{
+                        alert("已经添加过");
+                    }
+                },
+                error:function (result) {
+                    alert("系统错误");
+                    return false;
+                }
+            });
+        }
+        else{
+            alert("你还未登录");
+        }
+
+    }
+
+
+</script>
+
+</body>
+</html>
+
