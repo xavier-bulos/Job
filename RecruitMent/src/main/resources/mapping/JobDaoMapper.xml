@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="hzu1741.admin.mapper.JobDaoMapper" >
+  <resultMap id="BaseResultMap" type="hzu1741.admin.dao.JobDao" >
+    <id column="job_id" property="jobId" jdbcType="VARCHAR" />
+    <result column="job_title" property="jobTitle" jdbcType="VARCHAR" />
+    <result column="company" property="company" jdbcType="VARCHAR" />
+    <result column="work_place" property="workPlace" jdbcType="VARCHAR" />
+    <result column="job_pay" property="jobPay" jdbcType="VARCHAR" />
+    <result column="release_time" property="releaseTime" jdbcType="VARCHAR" />
+    <result column="job_url" property="jobUrl" jdbcType="VARCHAR" />
+    <result column="company_url" property="companyUrl" jdbcType="VARCHAR" />
+    <result column="job_state" property="jobState" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select job_id, job_title, company, work_place, job_pay, release_time, job_url, company_url, 
+    job_state
+    from job
+    where job_title like #{title,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select *
+    from job
+    <where>
+      <if test="place!= null || place ==''">
+          work_place like #{place,jdbcType=VARCHAR}
+      </if>
+      <if test="pay != null || pay=''">
+          and job_pay like #{pay,jdbcType=VARCHAR}
+      </if>
+      <if test="state != null || state=''">
+          and job_state like #{state,jdbcType=VARCHAR}
+      </if>
+      <if test="word != null || word=''">
+          and job_title like #{word,jdbcType=VARCHAR}
+      </if>
+    </where>
+
+  </select>
+</mapper>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="hzu1741.admin.mapper.CollectionDaoMapper" >
+  <resultMap id="BaseResultMap" type="hzu1741.admin.dao.CollectionDao" >
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="job_id" property="jobId" jdbcType="VARCHAR" />
+    <result column="job_title" property="jobTitle" jdbcType="VARCHAR" />
+    <result column="company" property="company" jdbcType="VARCHAR" />
+    <result column="work_place" property="workPlace" jdbcType="VARCHAR" />
+    <result column="job_pay" property="jobPay" jdbcType="VARCHAR" />
+    <result column="release_time" property="releaseTime" jdbcType="VARCHAR" />
+    <result column="job_url" property="jobUrl" jdbcType="VARCHAR" />
+    <result column="company_url" property="companyUrl" jdbcType="VARCHAR" />
+    <result column="job_state" property="jobState" jdbcType="VARCHAR" />
+  </resultMap>
+  <insert id="insert" parameterType="hzu1741.admin.dao.CollectionDao" >
+    insert into user_collection (user_name, job_id, job_title, 
+      company, work_place, job_pay, 
+      release_time, job_url, company_url, 
+      job_state)
+    values (#{userName,jdbcType=VARCHAR}, #{jobId,jdbcType=VARCHAR}, #{jobTitle,jdbcType=VARCHAR}, 
+      #{company,jdbcType=VARCHAR}, #{workPlace,jdbcType=VARCHAR}, #{jobPay,jdbcType=VARCHAR}, 
+      #{releaseTime,jdbcType=VARCHAR}, #{jobUrl,jdbcType=VARCHAR}, #{companyUrl,jdbcType=VARCHAR}, 
+      #{jobState,jdbcType=VARCHAR})
+  </insert>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select user_name, job_id, job_title, company, work_place, job_pay, release_time, 
+    job_url, company_url, job_state
+    from user_collection
+  </select>
+
+  <select id="getName" resultMap="BaseResultMap">
+    select user_name from user_collection where user_name = #{userName}
+  </select>
+
+  <select id="selectByName" resultMap="BaseResultMap">
+    select * from user_collection where user_name = #{userName}
+  </select>
+
+</mapper>

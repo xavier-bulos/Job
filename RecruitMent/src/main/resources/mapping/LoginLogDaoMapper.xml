@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="hzu1741.admin.mapper.LoginLogDaoMapper">
+  <resultMap id="BaseResultMap" type="hzu1741.admin.dao.LoginLogDao">
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="use_name" jdbcType="VARCHAR" property="useName" />
+    <result column="login_date" jdbcType="TIMESTAMP" property="loginDate" />
+    <result column="exit_date" jdbcType="TIMESTAMP" property="exitDate" />
+    <result column="online" jdbcType="VARCHAR" property="online" />
+  </resultMap>
+  <insert id="insert" parameterType="hzu1741.admin.dao.LoginLogDao">
+    insert into login_log (user_id, use_name, login_date, 
+      exit_date, online)
+    values (#{userId,jdbcType=VARCHAR}, #{useName,jdbcType=VARCHAR}, #{loginDate,jdbcType=TIMESTAMP}, 
+      #{exitDate,jdbcType=TIMESTAMP}, #{online,jdbcType=VARCHAR})
+  </insert>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select user_id, use_name, login_date, exit_date, online
+    from login_log
+  </select>
+
+</mapper>

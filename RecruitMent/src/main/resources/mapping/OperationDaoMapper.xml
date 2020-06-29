@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="hzu1741.admin.mapper.OperationDaoMapper">
+  <resultMap id="BaseResultMap" type="hzu1741.admin.dao.OperationDao">
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="operation" jdbcType="VARCHAR" property="operation" />
+    <result column="operation_date" jdbcType="DATE" property="operationDate" />
+  </resultMap>
+  <insert id="insert" parameterType="hzu1741.admin.dao.OperationDao">
+    insert into user_operation (user_id, user_name, operation, 
+      operation_date)
+    values (#{userId,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{operation,jdbcType=VARCHAR}, 
+      #{operationDate,jdbcType=DATE})
+  </insert>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select user_id, user_name, operation, operation_date
+    from user_operation
+  </select>
+
+</mapper>
